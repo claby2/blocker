@@ -33,6 +33,7 @@ const Block = ({ title, subtitle, setBlocks }: BlockProps) => {
         setBlocks((prev) => [
           ...prev,
           {
+            index: prev.length,
             type: item.type,
             subtitle: item.subtitle,
             data: "",

@@ -15,7 +15,7 @@ function App() {
           <Sidebar setBlocks={setBlocks} />
         </div>
         <div className="w-3/4 h-screen">
-          <Canvas blocks={blocks} />
+          <Canvas setBlocks={setBlocks} blocks={blocks} />
         </div>
       </div>
     </DndProvider>
