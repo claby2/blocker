@@ -1,35 +1,25 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
+import Sidebar from "./components/Sidebar";
+import Canvas from "./components/Canvas";
+import { useState } from "react";
+import { BlockData } from "./components/Block";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [blocks, setBlocks] = useState<BlockData[]>([]);
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <DndProvider backend={HTML5Backend}>
+      <div className="flex bg-gradient-to-r from-slate-700 to-slate-800">
+        <div className="w-1/4 h-screen">
+          <Sidebar setBlocks={setBlocks} />
+        </div>
+        <div className="w-3/4 h-screen">
+          <Canvas blocks={blocks} />
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </DndProvider>
+  );
 }
 
-export default App
+export default App;
