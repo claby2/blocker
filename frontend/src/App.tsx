@@ -4,14 +4,16 @@ import Sidebar from "./components/Sidebar";
 import Canvas from "./components/Canvas";
 import { useState } from "react";
 import { BlockData, BlockType } from "./components/Block";
+import Preview from "./components/Preview";
 
 function App() {
+  const [generated, setGenerated] = useState(true);
   const [blocks, setBlocks] = useState<BlockData[]>([
     {
       type: BlockType.BaseImage,
       subtitle: "Select a base image",
-      data: "debian"
-    }
+      data: "debian",
+    },
   ]);
 
   return (
@@ -21,7 +23,11 @@ function App() {
           <Sidebar setBlocks={setBlocks} />
         </div>
         <div className="w-3/4 h-screen">
-          <Canvas setBlocks={setBlocks} blocks={blocks} />
+          {generated ? (
+            <Preview blocks={blocks} />
+          ) : (
+            <Canvas setBlocks={setBlocks} blocks={blocks} />
+          )}
         </div>
       </div>
     </DndProvider>
