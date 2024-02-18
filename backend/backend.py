@@ -26,16 +26,16 @@ def handle_blocks():
         
         # docker_image = f"create a docker file using a {base_image.data} base image with the following instructions: "
         commands = []        
-        for b in blocks:
+        for index, block in enumerate(blocks):
             res = ""
-            if b.type == "base image":
-                res = f"create a docker file using a {base_image.data} base image with the following instructions: "
-            elif b.type == "install":
-                res = f"install the following package: {b.data}"
-            elif b.type == "env variables":
-                res = f"set an environment variable for {b.data}"
-            elif b.type == "run a command":
-                res = f"create and run a command to {b.data}"
+            if block.type == "base image":
+                res = f"create a docker file using a {base_image.data} base image and follow these instructions: "
+            elif block.type == "install":
+                res = f"{index}.) install package(s): {block.data}"
+            elif block.type == "env variables":
+                res = f"{index}.) set an environment variable: {block.data}"
+            elif block.type == "run a command":
+                res = f"{index}.) create and run this command: {block.data}"
             else:
                 abort(500, description="error with block type")
             commands.append(res)
@@ -49,6 +49,8 @@ def handle_blocks():
             messages=[
                 {"role": "system", "content": "SPOCs (Systems Programmer, Operator, and Consultants) \
                 assist in the installation, maintenance, development, and documentation of local software. \
+                You are an expert in linux commands, shell commands, and setting up docker images for developers.\
+                You are also proficient in writing readable code, with good documentation and comments.\
                 You are a SPOC that is building a docker image for people given specific instructions."},
                 {"role": "user", "content": "\n".join(commands)
                 }
