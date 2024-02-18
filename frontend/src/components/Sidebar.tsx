@@ -26,7 +26,7 @@ const Sidebar = ({ setBlocks }: SidebarProps) => {
         />
         <Block
           title={BlockType.RunCommand}
-          subtitle="Run a command"
+          subtitle="Run a shell command"
           setBlocks={setBlocks}
         />
       </div>
