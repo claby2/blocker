@@ -3,10 +3,16 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import Sidebar from "./components/Sidebar";
 import Canvas from "./components/Canvas";
 import { useState } from "react";
-import { BlockData } from "./components/Block";
+import { BlockData, BlockType } from "./components/Block";
 
 function App() {
-  const [blocks, setBlocks] = useState<BlockData[]>([]);
+  const [blocks, setBlocks] = useState<BlockData[]>([
+    {
+      type: BlockType.BaseImage,
+      subtitle: "Select a base image",
+      data: "debian"
+    }
+  ]);
 
   return (
     <DndProvider backend={HTML5Backend}>
