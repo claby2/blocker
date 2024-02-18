@@ -1,6 +1,6 @@
 import { useDrag, useDrop } from "react-dnd";
 import { Identifier, XYCoord } from "dnd-core";
-import { BlockData,  BlockTypeToIcon } from "./Block";
+import { BlockData, BlockTypeToIcon } from "./Block";
 import { Dispatch, SetStateAction, useRef } from "react";
 
 interface InteractiveBlockProps {

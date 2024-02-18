@@ -68,7 +68,7 @@ export default function Home() {
                 href="/build"
                 className="rounded-md bg-indigo-100 px-3.5 py-2.5 text-sm font-semibold text-slate-800 shadow-sm hover:bg-slate-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
-                Builder
+                Let's Build
               </a>
             </div>
           </div>
