@@ -4,11 +4,13 @@ from dataclasses import dataclass, asdict
 from openai import OpenAI
 from dotenv import load_dotenv
 import os
-from flask_cors import CORS  # Import CORS
+from flask_cors import CORS, cross_origin  # Import CORS
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "*"}})
+CORS(app) 
 load_dotenv()
+app.config['CORS_HEADERS'] = 'Content-Type'
+
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 @dataclass
@@ -18,6 +20,7 @@ class Block:
     
     
 @app.route('/submit', methods=['POST', 'OPTIONS'])
+@cross_origin()
 def handle_blocks():
     try:
         content = request.json
