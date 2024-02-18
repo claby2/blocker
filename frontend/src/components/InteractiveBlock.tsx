@@ -1,12 +1,13 @@
 import { useDrag, useDrop } from "react-dnd";
 import { Identifier, XYCoord } from "dnd-core";
 import { BlockData } from "./Block";
-import { useRef } from "react";
+import { Dispatch, SetStateAction, useRef } from "react";
 
 interface InteractiveBlockProps {
   index: number;
   data: BlockData;
   moveBlock: (dragIndex: number, hoverIndex: number) => void;
+  setBlocks: Dispatch<SetStateAction<BlockData[]>>;
 }
 
 interface DragItem {
@@ -18,6 +19,7 @@ const InteractiveBlock = ({
   index,
   data,
   moveBlock,
+  setBlocks,
 }: InteractiveBlockProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const [{ handlerId }, drop] = useDrop<
@@ -87,7 +89,14 @@ const InteractiveBlock = ({
       <input
         type="text"
         className="p-2 mt-2 w-full bg-slate-700 rounded-lg"
-        defaultValue={data.data}
+        value={data.data}
+        onChange={(e) => {
+          setBlocks((prev) => {
+            const newBlocks = [...prev];
+            newBlocks[index].data = e.target.value;
+            return newBlocks;
+          });
+        }}
       />
     </div>
   );

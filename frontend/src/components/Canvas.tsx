@@ -44,6 +44,7 @@ const Canvas = ({ blocks, setBlocks }: CanvasProps) => {
               key={index}
               data={block}
               moveBlock={moveBlock}
+              setBlocks={setBlocks}
             />
           ))}
       </div>
