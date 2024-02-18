@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { BlockData } from "./Block";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { gruvboxDark } from "react-syntax-highlighter/dist/esm/styles/prism";
@@ -7,8 +7,8 @@ interface PreviewProps {
   blocks: BlockData[];
 }
 
-const submit = async (blocks: BlockData[]) => {
-  const response = await fetch("http://127.0.0.1:8000", {
+const submit = async (blocks: BlockData[]): Promise<string> => {
+  const response = await fetch("http://127.0.0.1:8000/submit", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -25,13 +25,14 @@ const submit = async (blocks: BlockData[]) => {
     }),
   });
 
-  console.log(response);
+  return response.text();
 };
 
 const Preview = ({ blocks }: PreviewProps) => {
+  const [dockerfile, setDockerfile] = useState("");
   useEffect(() => {
     const submitBlocks = async () => {
-      await submit(blocks);
+      setDockerfile(await submit(blocks));
     };
     submitBlocks();
   }, []);
@@ -39,11 +40,11 @@ const Preview = ({ blocks }: PreviewProps) => {
     <div className="p-3 h-screen">
       <div className="p-3 border border-slate-600 rounded-lg h-full shadow-lg bg-slate-600 flex flex-col space-y-3 overflow-y-scroll">
         <SyntaxHighlighter
-          language="json"
+          language="docker"
           style={gruvboxDark}
           className="rounded"
         >
-          {JSON.stringify(blocks, null, 2)}
+          {dockerfile}
         </SyntaxHighlighter>
       </div>
     </div>

@@ -7,7 +7,7 @@ import { BlockData, BlockType } from "./components/Block";
 import Preview from "./components/Preview";
 
 function App() {
-  const [generated, setGenerated] = useState(true);
+  const [generated, setGenerated] = useState(false);
   const [blocks, setBlocks] = useState<BlockData[]>([
     {
       type: BlockType.BaseImage,
@@ -20,7 +20,11 @@ function App() {
     <DndProvider backend={HTML5Backend}>
       <div className="flex bg-gradient-to-r from-slate-700 to-slate-800">
         <div className="w-1/4 h-screen">
-          <Sidebar setBlocks={setBlocks} />
+          <Sidebar
+            generated={generated}
+            setBlocks={setBlocks}
+            setGenerated={setGenerated}
+          />
         </div>
         <div className="w-3/4 h-screen">
           {generated ? (
