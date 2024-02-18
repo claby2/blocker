@@ -1,6 +1,6 @@
 import { useDrag, useDrop } from "react-dnd";
 import { Identifier, XYCoord } from "dnd-core";
-import { BlockData } from "./Block";
+import { BlockData,  BlockTypeToIcon } from "./Block";
 import { Dispatch, SetStateAction, useRef } from "react";
 
 interface InteractiveBlockProps {
@@ -82,9 +82,14 @@ const InteractiveBlock = ({
       style={{ opacity }}
       className="p-3 border border-slate-900 border-primary cursor-pointer rounded-lg bg-slate-900 text-white text-left"
     >
-      <p className="text-white text-base font-medium tracking-tight">
-        {data.type}
-      </p>
+      <div>
+        <div className="flex items-center space-x-2">
+          <div className="w-6 h-6">{BlockTypeToIcon(data.type)}</div>
+          <p className="text-white text-base font-medium tracking-tight">
+            {data.type}
+          </p>
+        </div>
+      </div>
       <p className="text-slate-400 text-sm tracking-tight">{data.subtitle}</p>
       <input
         type="text"
